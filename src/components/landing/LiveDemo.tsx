@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Section } from "./Sections";
 
-type State = "idle" | "sending" | "success" | "failure";
+type State = "idle" | "sending" | "success";
 const SEND_MS = 900;
 
 export function LiveDemo() {
@@ -9,12 +9,11 @@ export function LiveDemo() {
   const [crumbs, setCrumbs] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [state, setState] = useState<State>("idle");
-  const [fail, setFail] = useState(false);
 
   const crumb = (c: string) => setCrumbs((p) => [...p.slice(-4), c]);
   const send = () => {
     setState("sending"); crumb("submit");
-    setTimeout(() => setState(fail ? "failure" : "success"), SEND_MS);
+    setTimeout(() => setState("success"), SEND_MS);
   };
   const report = {
     type: error ? "auto+user" : "user",
@@ -23,7 +22,7 @@ export function LiveDemo() {
     breadcrumbs: crumbs.map((c) => ({ type: "ui", message: c })),
     context: { url: "https://demo.example/page", viewport: "1280x800" },
   };
-  const msg = { idle: "", sending: "Sending…", success: "Report sent (simulated).", failure: "Sending failed (simulated). Try again." }[state];
+  const msg = { idle: "", sending: "Sending…", success: "Report sent (simulated)." }[state];
 
   return (
     <Section id="demo" eyebrow="Live demo · simulation" title="Try the form. Watch the report build.">
@@ -35,9 +34,8 @@ export function LiveDemo() {
           <div className="mt-4 flex flex-wrap gap-3">
             <button onClick={send} disabled={state === "sending"} className="min-h-11 rounded-md bg-primary px-5 font-medium text-primary-foreground disabled:opacity-60">Send</button>
             <button onClick={() => { setError("TypeError: x is undefined"); crumb("error thrown"); }} className="min-h-11 rounded-md border border-alert px-4 text-alert">Throw an error</button>
-            <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={fail} onChange={(e) => setFail(e.target.checked)} /> Simulate failure</label>
           </div>
-          <p aria-live="polite" className={`mt-4 min-h-6 text-sm ${state === "failure" ? "text-alert" : "text-primary"}`}>{msg}</p>
+          <p aria-live="polite" className="mt-4 min-h-6 text-sm text-primary">{msg}</p>
           <p className="text-xs text-muted-foreground">Not connected to any backend.</p>
         </div>
         <pre aria-label="Report preview" className="overflow-auto rounded-xl border bg-muted p-6 font-mono text-xs">{JSON.stringify(report, null, 2)}</pre>
