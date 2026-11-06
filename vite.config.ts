@@ -13,4 +13,7 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  // Build for Netlify when deployed outside Lovable. Lovable builds ignore this
+  // override and keep using their pinned Cloudflare preset.
+  nitro: { preset: "netlify" },
 });
