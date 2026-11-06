@@ -1,0 +1,15 @@
+node_modules
+.output
+.nitro
+.tanstack
+dist
+.env
+.env.*
+!.env.example
+*.local
+*.log
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea
