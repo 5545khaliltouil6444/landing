@@ -92,7 +92,6 @@ export function Privacy() {
         <div className="rounded-xl border bg-card p-6"><h3 className="font-semibold">Built-in safeguards</h3>
           <ul className="mt-3 space-y-2 text-sm text-muted-foreground">{privacy.does.map((x) => <li key={x}>✓ {x}</li>)}</ul></div>
       </div>
-      <p className="mt-6 rounded-md border border-alert/40 bg-alert/10 p-4 text-sm">{privacy.note}</p>
     </Section>
   );
 }

@@ -57,7 +57,6 @@ export const statusLabel = { auto: "Automatic", manual: "Manual only", none: "No
 export const privacy = {
   never: ["Request or response bodies", "Request headers", "Cookies", "Keystrokes"],
   does: ["Baseline scrubber on report fields", "URL sanitizing (query & hash removed)", "Screenshot only if the user chooses to attach it"],
-  note: "A full privacy layer is on the roadmap. Review what you send before using this in production.",
 };
 
 export const quickStart = [
